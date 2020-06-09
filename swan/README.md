@@ -1,2 +1,159 @@
-Please see the [Jupyter Notebook]() to see what Swan commands were used to obtain the numbers and figure for the manuscript.
+```python
+import swan_vis as swan
+```
 
+
+```python
+data_dir = '/Users/fairliereese/mortazavi_lab/data/200428_swan_paper/hffc6_hepg2/take2/'
+ab_file = data_dir+'all_talon_abundance_filtered.tsv'
+ref_gtf = '/Users/fairliereese/mortazavi_lab/ref/gencode.v29/gencode.v29.annotation.gtf'
+hep_1_gtf = data_dir+'hepg2_1_talon.gtf'
+hep_2_gtf = data_dir+'hepg2_2_talon.gtf'
+hff_1_gtf = data_dir+'hffc6_1_talon.gtf'
+hff_2_gtf = data_dir+'hffc6_2_talon.gtf'
+hff_3_gtf = data_dir+'hffc6_3_talon.gtf'
+```
+
+
+```python
+# add data to the SwanGraph
+sg = swan.SwanGraph()
+sg.add_annotation(ref_gtf)
+sg.add_dataset('HepG2_1', hep_1_gtf,
+	counts_file=ab_file,
+	count_cols='hepg2_1')
+sg.add_dataset('HepG2_2', hep_2_gtf,
+	counts_file=ab_file,
+	count_cols='hepg2_2')
+sg.add_dataset('HFFc6_1', hff_1_gtf,
+	counts_file=ab_file,
+	count_cols='hffc6_1')
+sg.add_dataset('HFFc6_2', hff_2_gtf,
+	counts_file=ab_file,
+	count_cols='hffc6_2')
+sg.add_dataset('HFFc6_3', hff_3_gtf,
+	counts_file=ab_file,
+	count_cols='hffc6_3')
+
+# save graph for good measure
+sg.save_graph('swan')
+```
+
+    Adding dataset annotation to the SwanGraph.
+    Adding dataset HepG2_1 to the SwanGraph.
+    Adding dataset HepG2_2 to the SwanGraph.
+    Adding dataset HFFc6_1 to the SwanGraph.
+    Adding dataset HFFc6_2 to the SwanGraph.
+    Adding dataset HFFc6_3 to the SwanGraph.
+    Saving graph as swan.p
+
+
+
+```python
+# de gene and transcript tests
+dataset_groups=[['HepG2_1', 'HepG2_2'], ['HFFc6_1', 'HFFc6_2', 'HFFc6_3']]
+
+sg.de_gene_test(dataset_groups)
+sg.de_transcript_test(dataset_groups)
+
+de_gids, _ = sg.get_de_genes()
+print('Found {} differentially expressed genes'.format(len(de_gids)))
+
+de_tids, _ = sg.get_de_transcripts()
+print('Found {} differentially expressed transcripts'.format(len(de_tids)))
+
+is_gids, _ = sg.find_isoform_switching_genes()
+print('Found {} isoform switching genes'.format(len(is_gids)))
+
+# save graph for good measure
+sg.save_graph('swan')
+```
+
+    Transforming to str index.
+
+
+    training location model: False
+    training scale model: True
+    iter   0: ll=76839008.205068
+    iter   1: ll=76839008.205068, converged: 0.00% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   2: ll=3994961.414960, converged: 1.20% (loc: 1.20%, scale update: True), in 111.63sec
+    iter   3: ll=3994961.414960, converged: 1.20% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   4: ll=2972738.740537, converged: 15.96% (loc: 15.96%, scale update: True), in 89.05sec
+    iter   5: ll=2972738.740537, converged: 15.96% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   6: ll=2919018.652501, converged: 21.45% (loc: 21.45%, scale update: True), in 83.04sec
+    iter   7: ll=2919018.652501, converged: 21.45% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   8: ll=2746114.113052, converged: 24.10% (loc: 24.10%, scale update: True), in 74.21sec
+    iter   9: ll=2746114.113052, converged: 24.10% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  10: ll=2745964.853568, converged: 99.88% (loc: 99.88%, scale update: True), in 64.03sec
+    iter  11: ll=2745964.853568, converged: 99.88% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  12: ll=2745900.750399, converged: 99.96% (loc: 99.96%, scale update: True), in 3.00sec
+    iter  13: ll=2745900.750399, converged: 99.96% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  14: ll=2745893.960127, converged: 99.99% (loc: 99.99%, scale update: True), in 1.87sec
+    iter  15: ll=2745893.960127, converged: 99.99% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  16: ll=2745893.960127, converged: 100.00% (loc: 100.00%, scale update: True), in 1.58sec
+
+
+    /Users/fairliereese/miniconda3/lib/python3.7/site-packages/dask/array/core.py:2622: RuntimeWarning: divide by zero encountered in true_divide
+      size = (limit / dtype.itemsize / largest_block) ** (1 / len(autos))
+    Transforming to str index.
+
+
+    training location model: False
+    training scale model: True
+    iter   0: ll=292114902.725192
+    iter   1: ll=292114902.725192, converged: 0.00% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   2: ll=9689621.464688, converged: 0.64% (loc: 0.64%, scale update: True), in 440.85sec
+    iter   3: ll=9689621.464688, converged: 0.64% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   4: ll=6067450.782106, converged: 8.86% (loc: 8.86%, scale update: True), in 374.06sec
+    iter   5: ll=6067450.782106, converged: 8.86% (loc: 100.00%, scale update: False), in 0.00sec
+    iter   6: ll=5861723.183757, converged: 13.56% (loc: 13.56%, scale update: True), in 340.69sec
+    iter   7: ll=5861723.183757, converged: 13.56% (loc: 100.00%, scale update: False), in 0.01sec
+    iter   8: ll=5184440.659661, converged: 15.97% (loc: 15.97%, scale update: True), in 303.59sec
+    iter   9: ll=5184440.659661, converged: 15.97% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  10: ll=5184122.283550, converged: 99.89% (loc: 99.89%, scale update: True), in 275.93sec
+    iter  11: ll=5184122.283550, converged: 99.89% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  12: ll=5183985.427572, converged: 99.97% (loc: 99.97%, scale update: True), in 8.36sec
+    iter  13: ll=5183985.427572, converged: 99.97% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  14: ll=5183973.042257, converged: 100.00% (loc: 100.00%, scale update: True), in 7.57sec
+    iter  15: ll=5183973.042257, converged: 100.00% (loc: 100.00%, scale update: False), in 0.00sec
+    iter  16: ll=5183973.042257, converged: 100.00% (loc: 100.00%, scale update: True), in 7.01sec
+
+
+    /Users/fairliereese/miniconda3/lib/python3.7/site-packages/dask/array/core.py:2622: RuntimeWarning: divide by zero encountered in true_divide
+      size = (limit / dtype.itemsize / largest_block) ** (1 / len(autos))
+
+
+    Found 4009 differentially expressed genes
+    Found 4909 differentially expressed transcripts
+    Found 279 isoform switching genes
+    Saving graph as swan.p
+
+
+
+```python
+# exon skipping and intron retention detection
+es_gids = sg.find_es_genes()
+print('Found {} novel exon-skipping genes'.format(len(es_gids)))
+ir_gids = sg.find_ir_genes()
+print('Found {} novel intron-retaining genes'.format(len(ir_gids)))
+```
+
+
+```python
+# find genes that have exon skipping or intron retention and are
+# isoform switching
+ir_es_gids = list(set(ir_gids+es_gids))
+cool_gids = list(set(is_gids)&set(ir_es_gids))
+print(cool_gids)
+```
+
+
+```python
+# create gene report for ADRM1
+sg.gen_report('ADRM1',
+              'adrm1_paper',
+              heatmap=True,
+              novelty=True,
+              include_qvals=True,
+              indicate_novel=True)
+```
