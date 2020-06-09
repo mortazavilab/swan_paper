@@ -131,12 +131,32 @@ sg.save_graph('swan')
 
 
 ```python
+sg = swan.SwanGraph('/Users/fairliereese/mortazavi_lab/data/200428_swan_paper/hffc6_hepg2/take2/swan.p')
+is_gids, _ = sg.find_isoform_switching_genes()
+print('Found {} isoform switching genes'.format(len(is_gids)))
+
+```
+
+    Graph from /Users/fairliereese/mortazavi_lab/data/200428_swan_paper/hffc6_hepg2/take2/swan.p loaded
+    Found 279 isoform switching genes
+
+
+
+```python
 # exon skipping and intron retention detection
 es_gids = sg.find_es_genes()
 print('Found {} novel exon-skipping genes'.format(len(es_gids)))
 ir_gids = sg.find_ir_genes()
 print('Found {} novel intron-retaining genes'.format(len(ir_gids)))
 ```
+
+    Analyzing 893 intronic edges for ES
+    Found 1021 novel es events from 285 genes.
+    Found 285 novel exon-skipping genes
+    Analyzing 2185 exonic edges for IR
+    Found 73 novel ir events from 47 genes.
+    Found 47 novel intron-retaining genes
+
 
 
 ```python
@@ -146,6 +166,9 @@ ir_es_gids = list(set(ir_gids+es_gids))
 cool_gids = list(set(is_gids)&set(ir_es_gids))
 print(cool_gids)
 ```
+
+    ['ENSG00000111237.18', 'ENSG00000185624.14', 'ENSG00000133835.15', 'ENSG00000140319.10', 'ENSG00000016864.18', 'ENSG00000100239.15', 'ENSG00000130706.12', 'ENSG00000147586.9', 'ENSG00000100284.20', 'ENSG00000137161.16', 'ENSG00000182149.20', 'ENSG00000129084.17', 'ENSG00000169813.16', 'ENSG00000274487.2', 'ENSG00000197746.13', 'ENSG00000229833.9', 'ENSG00000108946.14', 'ENSG00000156411.9', 'ENSG00000177600.8', 'ENSG00000108219.14', 'ENSG00000164733.20', 'ENSG00000111669.14', 'ENSG00000143429.10', 'ENSG00000143742.12', 'ENSG00000196704.11', 'ENSG00000089022.13', 'ENSG00000168175.14', 'ENSG00000213719.8', 'ENSG00000128739.22', 'ENSG00000143977.13', 'ENSG00000075415.12', 'ENSG00000100138.14', 'ENSG00000165119.20', 'ENSG00000120265.17', 'ENSG00000042493.15', 'ENSG00000145907.14', 'ENSG00000102897.9', 'ENSG00000101363.12', 'ENSG00000116251.10', 'ENSG00000215021.8', 'ENSG00000159352.15']
+
 
 
 ```python
@@ -157,3 +180,28 @@ sg.gen_report('ADRM1',
               include_qvals=True,
               indicate_novel=True)
 ```
+
+    
+    Plotting transcripts for ENSG00000130706.12
+    Saving transcript path graph for ENST00000253003.6 as adrm1_paper_novel_ENST00000253003.6_path.png
+    Saving transcript path graph for ENST00000620230.4 as adrm1_paper_novel_ENST00000620230.4_path.png
+    Saving transcript path graph for TALONT000301927 as adrm1_paper_novel_TALONT000301927_path.png
+    Saving transcript path graph for TALONT000301961 as adrm1_paper_novel_TALONT000301961_path.png
+    Saving transcript path graph for TALONT000301953 as adrm1_paper_novel_TALONT000301953_path.png
+    Generating report for ENSG00000130706.12
+
+
+
+```python
+# this is just to display saved images
+from IPython.display import display, Image
+```
+
+
+```python
+display(Image(filename='report.png'))
+```
+
+
+![png](report.png)
+
