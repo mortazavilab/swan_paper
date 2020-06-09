@@ -4,4 +4,4 @@ See TALON and instructions for installation [here](https://github.com/mortazavil
 See Swan and instructions for installation [here](https://freese.gitbook.io/swan/).
 
 * [Data download, processing, and running TALON](https://github.com/fairliereese/swan_paper/tree/master/data_processing)
-* [Swan commands used to generate figures and numbers in the text](https://github.com/fairliereese/swan_paper/blob/master/swan/swan_driver.ipynb)
+* [Swan commands used to generate figures and numbers in the text](https://github.com/fairliereese/swan_paper/tree/master/swan)
