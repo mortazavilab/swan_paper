@@ -1,3 +1,5 @@
+## If you are here from the manuscript, I accidentally put the wrong link in! You can find the software library [here](https://github.com/mortazavilab/swan_vis)
+
 This repo contains all the commands needed to run the analysis for the Swan manuscript, which can be read [here](https://www.biorxiv.org/content/10.1101/2020.06.09.143024v1).
 
 Please see the **[Swan documentation website](https://freese.gitbook.io/swan/)**.
